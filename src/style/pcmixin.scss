@@ -1,0 +1,332 @@
+//page width
+$designWidth: 1920;
+//px to rem
+@function rem($px: 10) {
+  @return $px/$designWidth*10rem;
+}
+
+//html {font-size: $designWidth/10/$designWidth*100vw;width: 100vw;height: 100vh;}
+//伸缩盒（旧）
+@mixin box($pack: center, $align:center, $orient:horizontal) {
+  display: -webkit-box;
+  -webkit-box-pack: $pack;
+  -webkit-box-align: $align;
+  -webkit-box-orient: $orient;
+}
+
+@mixin pack-c {
+  @include box($pack: center);
+}
+
+@mixin align-c {
+  @include box($align: center);
+}
+
+@mixin box-v {
+  @include box($orient: vertical)
+}
+
+@mixin box-v-start {
+  @include box($align: start, $orient: vertical)
+}
+
+@mixin box-c {
+  @include box()
+}
+
+@mixin box-justify {
+  @include box($pack: justify)
+}
+
+@mixin box-pack-start {
+  @include box($pack: start)
+}
+
+@mixin box-pack-end {
+  @include box($pack: end)
+}
+
+@mixin box-flex {
+  -webkit-box-flex: 1;
+}
+
+@mixin after-link {
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+}
+
+@mixin max-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@mixin mask-image($url:'') {
+  -webkit-mask-box-image: url($url);
+}
+
+//文本溢出省略号显示
+@mixin ellipsis($line:1) {
+  @if $line==1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+
+// 旋转位置
+@mixin transform-origin($origin...) {
+  -webkit-transform-origin: $origin;
+  -moz-transform-origin: $origin;
+  -o-transform-origin: $origin;
+  transform-origin: $origin;
+}
+
+//转换
+@mixin transform($transform...) {
+  -webkit-transform: $transform;
+  -moz-transform: $transform;
+  -o-transform: $transform;
+  transform: $transform;
+}
+
+// 动画名称
+@mixin animation($aniName...) {
+  -webkit-animation: $aniName;
+  -moz-animation: $aniName;
+  -o-animation: $aniName;
+  animation: $aniName;
+}
+
+// 延迟执行时间
+@mixin animation-delay($time) {
+  -webkit-animation-delay: $time;
+  -moz-animation-delay: $time;
+  -o-animation-delay: $time;
+  animation-delay: $time;
+}
+
+// 延迟执行时间
+@mixin transition-delay($time) {
+  -webkit-transition-delay: $time;
+  -moz-transition-delay: $time;
+  -o-transition-delay: $time;
+  transition-delay: $time;
+}
+
+// 关键帧
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+//高清屏 1px问题简单处理
+//@include retina-border($position:relative){
+//    border:1px solid #ddd;
+//    border-radius:rem(3);
+//}
+@mixin retina-border($position:relative,$class:before) {
+  @media (-webkit-min-device-pixel-ratio: 2) {
+    & {
+      border: none;
+      position: $position
+    }
+    &:#{$class} {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 200%;
+      height: 200%;
+      pointer-events: none;
+      z-index: -1;
+      @include transform-origin(left top);
+      @include transform(scale(.5));
+      @content;
+    }
+  }
+}
+
+//统一图片样式
+@mixin imgbox($w:0,$h:0) {
+  width: $w;
+  height: $h;
+  overflow: hidden;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+@mixin clearfix() {
+  zoom: 1;
+
+  &:before, &:after {
+    content: "";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin badge-before($direction: top,$color: #fff,$spread: 4,$inset: none,$percent: 1) {
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    @if $direction == left {
+      top: 50%;
+      margin-top: rem($spread * -1);
+      border-top: rem($spread * 1) solid transparent;
+      border-bottom: rem($spread * 1) solid transparent;
+
+      @if $inset == inset {
+        left: 0;
+        border-left: rem($spread * $percent * 1) solid $color;
+      } @else {
+        left: rem($spread * -1);
+        border-right: rem(spread * $percent * 1) solid $color;
+      }
+    } @else if $direction == top {
+      left: 50%;
+      margin-left: rem($spread * -1);
+      border-left: rem($spread * 1) solid transparent;
+      border-right: rem($spread * 1) solid transparent;
+
+      @if $inset == inset {
+        top: 0;
+        border-top: rem($spread * $percent * 1) solid $color;
+      } @else {
+        top: rem($spread * -1);
+        border-bottom: rem($spread * $percent * 1) solid $color;
+      }
+    } @else if $direction == right {
+      top: 50%;
+      margin-top: rem($spread * -1);
+      border-top: rem($spread * 1) solid transparent;
+      border-bottom: rem($spread * 1) solid transparent;
+
+      @if $inset == inset {
+        right: 0;
+        border-right: rem($spread * $percent * 1) solid $color;
+      } @else {
+        right: rem($spread * -1);
+        border-left: rem($spread * $percent * 1) solid $color;
+      }
+    } @else {
+      left: 50%;
+      margin-left: rem($spread * -1);
+      border-left: rem($spread * 1) solid transparent;
+      border-right: rem($spread * 1) solid transparent;
+
+      @if $inset == inset {
+        bottom: 0;
+        border-bottom: rem($spread * $percent * 1) solid $color;
+      } @else {
+        bottom: rem($spread * -1);
+        border-top: rem($spread * $percent * 1) solid $color;
+      }
+    }
+  }
+}
+
+@mixin badge-after($direction: top,$color: #fff,$spread: 4,$inset: none,$percent: 1) {
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    @if $direction == left {
+      top: 50%;
+      margin-top: rem($spread * -1);
+      border-top: rem($spread * 1) solid transparent;
+      border-bottom: rem($spread * 1) solid transparent;
+
+      @if $inset == inset {
+        left: 0;
+        border-left: rem($spread * $percent * 1) solid $color;
+      } @else {
+        left: rem($spread * -1);
+        border-right: rem($spread * $percent * 1) solid $color;
+      }
+    } @else if $direction == top {
+      left: 50%;
+      margin-left: rem($spread * -1);
+      border-left: rem($spread * 1) solid transparent;
+      border-right: rem($spread * 1) solid transparent;
+
+      @if $inset == inset {
+        top: 0;
+        border-top: rem($spread * $percent * 1) solid $color;
+      } @else {
+        top: rem($spread * -1);
+        border-bottom: rem($spread * $percent * 1) solid $color;
+      }
+    } @else if $direction == right {
+      top: 50%;
+      margin-top: rem($spread * -1);
+      border-top: rem($spread * 1) solid transparent;
+      border-bottom: rem($spread * 1) solid transparent;
+
+      @if $inset == inset {
+        right: 0;
+        border-right: rem($spread * $percent * 1) solid $color;
+      } @else {
+        right: rem($spread * -1);
+        border-left: rem($spread * $percent * 1) solid $color;
+      }
+    } @else {
+      left: 50%;
+      margin-left: rem($spread * -1);
+      border-left: rem($spread * 1) solid transparent;
+      border-right: rem($spread * 1) solid transparent;
+
+      @if $inset == inset {
+        bottom: 0;
+        border-bottom: rem($spread * $percent * 1) solid $color;
+      } @else {
+        bottom: rem($spread * -1);
+        border-top: rem($spread * $percent * 1) solid $color;
+      }
+    }
+  }
+}
