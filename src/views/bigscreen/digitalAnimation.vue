@@ -1,6 +1,6 @@
 <template>
 
-  <p>{{ animatedNumber }}<span :class="className">{{symbol}}</span></p>
+  <p>{{ num }}<span :class="className">{{symbol}}</span></p>
 
 </template>
 <script>
@@ -12,7 +12,7 @@
       num: {
         value: Number,
         default() {
-          return 100;
+          return 0;
         },
       },
       symbol: {
@@ -30,26 +30,20 @@
     },
     methods: {},
     computed: {
-      animatedNumber: function () {
-        return this.tweenedNumber.toFixed(0);
-      }
     },
     created() {
-
     },
     mounted: function () {
-      this.number = this.num;
+
     },
     watch: {
-      number: function (newValue) {
+      num: function (newValue) {
         TweenLite.to(this.$data, 1.5, {tweenedNumber: newValue});
       }
     },
 
     data() {
       return {
-        number: 0,
-        tweenedNumber: 0
       };
     },
   }

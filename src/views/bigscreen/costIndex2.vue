@@ -2,19 +2,19 @@
   <div class="cost-index2-view">
     <div class="cost-index2-item">
       <div id="contracted">
-        <div class="cost-index2-title">签约面积</div>
+        <div class="cost-index2-title">33</div>
         <line-statistics2 :list="contracted" :height="3" :width="2.7"/>
       </div>
     </div>
     <div class="cost-index2-item">
       <div id="express">
-        <div class="cost-index2-title">交房面积</div>
+        <div class="cost-index2-title">11</div>
         <line-statistics2 :list="contracted" :height="3" :width="2.7"/>
       </div>
     </div>
     <div class="cost-index2-item">
       <div id="dismantle">
-        <div class="cost-index2-title">拆除面积</div>
+        <div class="cost-index2-title">22</div>
         <line-statistics2 :list="contracted" :height="3" :width="2.7"/>
       </div>
     </div>

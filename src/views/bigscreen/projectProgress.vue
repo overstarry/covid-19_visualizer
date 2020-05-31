@@ -6,7 +6,6 @@
     <div class="project-progress-num">
       <DigitalAnimation :num="datas.total"></DigitalAnimation>
       <div class="project-progress-unit">
-        ㎡
       </div>
     </div>
     <div class="project-progress-per">
@@ -35,7 +34,7 @@
       datas: {
         type: Object,
         default() {
-          var data = {
+          const data = {
             title: "已签约",
             total: 10000,
             per: 50,
@@ -60,7 +59,7 @@
       index: {
         type: Number,
         default() {
-          var data = "1";
+          const data = "1";
           return data;
         }
       }

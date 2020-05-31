@@ -2,179 +2,186 @@
   <div>
     <div class="title-box2">
       <div class="title-icon2"></div>
-      <span class="title-name2">项目指标</span>
+      <span class="title-name2">确诊死亡排行</span>
     </div>
-    <!--签约排名-->
+    <!--确诊排名-->
     <div class="project-index-box">
-      <div class="project-index-title">签约排名</div>
-      <div v-for="(data,index) in contractDatas">
+      <div class="project-index-title">确诊排名</div>
+      <div v-for="(data,index) in contractDatas" :key="index">
         <contract-rank
           :class="{projectitem0:index===0,projectitem1:index===1,projectitem2:index===2}"
           :list="data"></contract-rank>
       </div>
-      <!--交房排名-->
+      <!--死亡排名-->
       <div class="project-index-express">
-        <div class="project-index-title2">交房排名</div>
-        <div v-for="(data,index) in expressDatas">
+        <div class="project-index-title2">死亡排名</div>
+        <div v-for="(data,index) in contractDatas1" :key="index">
           <other-rank
-            :class="{projectexpress0:index===0,projectexpress1:index===1,projectexpress2:index===2}"
+            :class="{projectexpress0:index===0,projectexpress1:index===1,projectexpress2:index===2,projectexpress3:index===3}"
             :list="data" type="express"></other-rank>
         </div>
       </div>
-      <!--交房排名-->
-      <div class="project-index-dismantle">
-        <div class="project-index-title3">拆除排名</div>
-        <other-rank :list="dismantleData" type="dismantle" class="projectdismantle"></other-rank>
-      </div>
+
     </div>
   </div>
 
 </template>
 <script>
+  import * as d3 from "d3";
+
   export default {
     name: 'projectIndex',
-    methods: {},
+    methods: {
+      //排序函数
+      compare(property) {
+        return function (obj1, obj2) {
+          var value1 = obj1[property];
+          var value2 = obj2[property];
+          return value2 - value1;     // 降序
+        }
+      }
+    },
     components: {
       contractRank: () => import(/* webpackChunkName: "line-statistics" */ './contractRank.vue'),
       otherRank: () => import(/* webpackChunkName: "line-statistics" */ './otherRank.vue'),
     },
     computed: {},
     created() {
+      d3.json("DXYArea.json").then((data) => {
+        let temp2 = 0;
+        let temp3 = 0;
+        //let temp4 = 0;
+        let dead_arr = []
+        for (const datakey in data.results) {
+          temp2 += data.results[datakey].confirmedCount;
+          temp3 += data.results[datakey].deadCount;
+          // temp4 += data.results[datakey].curedCount;
+
+          dead_arr.push({
+            "confirmedcount": data.results[datakey].confirmedCount,
+            "name": data.results[datakey].countryName,
+            "deadcount": data.results[datakey].deadCount,
+            "confirmedCount": data.results[datakey].confirmedCount,
+            "curedCount": data.results[datakey].curedCount
+          })
+        }
+        for (let i = 0; i < dead_arr.length; i++) {
+          dead_arr[i].deadper = (dead_arr[i].deadcount / temp3 * 100).toFixed(1)
+          dead_arr[i].confirmedper = (dead_arr[i].confirmedCount / temp2 * 100).toFixed(1)
+          dead_arr[i].confirmedtotal = temp2
+          dead_arr[i].deadtotal = temp3
+          dead_arr[i].data = [{
+            name: "死亡人数",
+            value: dead_arr[i].deadcount
+          },
+            {
+              name: "治愈人数",
+              value: dead_arr[i].curedCount
+            }]
+        }
+        this.contractDatas.length = 0;
+        dead_arr.sort(this.compare("confirmedCount")).slice(0, 3);
+        this.contractDatas = dead_arr.slice(0, 3);
+        this.contractDatas1.length = 0;
+        window.console.log(this.contractDatas);
+
+        this.contractDatas1 = dead_arr.sort(this.compare("deadcount")).slice(0, 3);
+        for (let i = 0; i < this.contractDatas1.length; i++) {
+          //  this.contractDatas1[i].data.length = 0;
+          this.contractDatas1[i].data1 = [{
+            name: "确诊人数",
+            value: this.contractDatas1[i].confirmedCount
+          },
+            {
+              name: "治愈人数",
+              value: this.contractDatas1[i].curedCount
+            }]
+        }
+      });
 
     },
     data() {
       return {
         contractDatas: [{
-          name: "A项目",
-          per: 33,
-          exis: "10000㎡",
-          total: "30000㎡",
+          name: "A国",
+          per: 0,
+          confirmedcount: "0",
+          confirmedtotal: "0",
           data: [{
-            name: "占地面积",
-            value: "8500㎡/23000㎡"
+            name: "死亡人数",
+            value: "0"
           },
             {
-              name: "签约协议",
-              value: "47份"
-            },
-            {
-              name: "安置人口",
-              value: "1200人"
-            },
-            {
-              name: "签约楼栋",
-              value: "75栋"
-            },
-            {
-              name: "签约户数",
-              value: "421户"
+              name: "治愈人数",
+              value: "0"
             }]
         }, {
-          name: "B项目",
+          name: "A国",
           per: 32,
-          exis: "8000㎡",
-          total: "25000㎡",
+          confirmedcount: "8",
+          confirmedtotal: "2",
           data: [{
-            name: "占地面积",
-            value: "6800㎡/20000㎡"
+            name: "死亡人数",
+            value: "0"
           },
             {
-              name: "签约协议",
-              value: "47份"
-            },
-            {
-              name: "安置人口",
-              value: "1000人"
-            },
-            {
-              name: "签约楼栋",
-              value: "68栋"
-            },
-            {
-              name: "签约户数",
-              value: "292户"
+              name: "治愈人数",
+              value: "0"
             }]
         }, {
-          name: "C项目",
-          per: 27,
-          exis: "6000㎡",
-          total: "22000㎡",
+          name: "A国",
+          per: 0,
+          confirmedcount: "6",
+          confirmedtotal: "2",
           data: [{
-            name: "占地面积",
-            value: "5800㎡/15000㎡"
+            name: "死亡人数",
+            value: "0"
           },
             {
-              name: "签约协议",
-              value: "39份"
-            },
-            {
-              name: "安置人口",
-              value: "800人"
-            },
-            {
-              name: "签约楼栋",
-              value: "52栋"
-            },
-            {
-              name: "签约户数",
-              value: "212户"
+              name: "治愈人数",
+              value: "0"
             }]
         }],
-        expressDatas: [{
-          name: "A项目",
-          per: 80,
-          exis: "10000㎡",
-          total: "30000㎡",
+        contractDatas1: [{
+          name: "A国",
+          per: 0,
+          confirmedcount: "0",
+          confirmedtotal: "0",
           data: [{
-            name: "交房占地",
-            value: "30000㎡"
+            name: "确诊人数",
+            value: "0"
           },
             {
-              name: "交房楼栋",
-              value: "22栋"
+              name: "治愈人数",
+              value: "0"
             }]
         }, {
-          name: "B项目",
-          per: 50,
-          exis: "5000㎡",
-          total: "10000㎡",
+          name: "A国",
+          per: 32,
+          confirmedcount: "8",
+          confirmedtotal: "2",
           data: [{
-            name: "交房占地",
-            value: "28000㎡"
+            name: "确诊人数",
+            value: "0"
           },
             {
-              name: "交房楼栋",
-              value: "15栋"
+              name: "治愈人数",
+              value: "0"
             }]
         }, {
-          name: "C项目",
-          per: 40,
-          exis: "6000㎡",
-          total: "15000㎡",
+          name: "A国",
+          per: 0,
+          confirmedcount: "6",
+          confirmedtotal: "2",
           data: [{
-            name: "交房占地",
-            value: "20000㎡"
+            name: "确诊人数",
+            value: "0"
           },
             {
-              name: "交房楼栋",
-              value: "12栋"
+              name: "治愈人数",
+              value: "0"
             }]
-        }],
-        dismantleData: {
-          name: "A项目",
-          per: 89,
-          exis: "16000㎡",
-          total: "18000㎡",
-          data: [{
-            name: "拆除占地",
-            value: "23000㎡"
-          },
-            {
-              name: "拆除楼栋",
-              value: "68栋"
-            }]
-
-        }
+        }]
       }
     },
   };</script>
@@ -254,22 +261,6 @@
     line-height: 0.4rem;
   }
 
-  /*拆除排名*/
-  .project-index-title3 {
-    background-image: url('./images/xmzb.png');
-    background-size: 1.02rem 0.4rem;
-    width: 1.02rem;
-    height: 0.4rem;
-    position: absolute;
-    top: 8.34rem;
-    left: 2.18rem;
-    font-family: PingFangSC-Semibold;
-    font-size: 0.18rem;
-    color: #FFFFFF;
-    letter-spacing: 0;
-    text-align: center;
-    line-height: 0.4rem;
-  }
 
   .projectitem1 {
     position: relative;

@@ -6,11 +6,19 @@
 
 <script>
   import index from './views/bigscreen/index'
+  //import d3d from './components/d3demo.vue'
 
   export default {
     name: 'App',
+    data() {
+      return {}
+    },
     components: {
       index
+    },
+    methods: {
+      show: function () {
+      }
     }
   }
 </script>

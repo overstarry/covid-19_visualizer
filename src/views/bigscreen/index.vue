@@ -3,19 +3,13 @@
     <div :class="bodyClass" style="overflow:hidden;">
       <div class="header-img"></div>
       <!--地图-->
-      <!--      <map-view class="map-view"></map-view>-->
-      <!--集团指标-->
+      <map-view class="map-view"></map-view>
+      <!--人数占比-->
       <group-index></group-index>
-      <!--成本指标-->
-      <cost-index class="cost-index"></cost-index>
-      <!--中间总览悬浮框-->
-      <overview-Box class="overview-Box"></overview-Box>
       <!--中间底部折线图-->
-      <cost-index2 class="cost-index2"></cost-index2>
-      <!--项目指标-->
+      <cost-index2 class="cost-index"></cost-index2>
+      <!--排行-->
       <project-index class="project-index"></project-index>
-      <!--图例边框-->
-      <!--      <Lengend class="legend-box"></Lengend>-->
     </div>
   </div>
 </template>
@@ -26,32 +20,22 @@
   export default {
     name: 'index',
     methods: {
-      async allList() {
-        //var a = await this.$http.get('/biz-program/programinfo/allList');
-        //console.log(a);
-      }
+
     },
     mounted() {
       reset();
       window.onresize = function () { // 定义窗口大小变更通知事件
         reset();
       }
-      this.allList();
       document.getElementById("app").style.overflowX = "hidden";
       document.getElementById("app").style.height = "10.8rem";
     },
     components: {
-      // MainMap: () => import('@/components/MainMap.vue'),
       GroupIndex: () => import('./groupIndex.vue'),
-      CostIndex: () => import('./costIndex.vue'),
       CostIndex2: () => import('./costIndex2.vue'),
-      OverviewBox: () => import('./overviewBox.vue'),
       ProjectIndex: () => import('./projectIndex.vue'),
-      // Lengend: () => import('./legendBox.vue'),
-      // MapView: () => import('./mapView.vue'),
+      MapView: () => import('../../components/mapview.vue'),
 
-      //RightContainer: () => import(/* webpackChunkName: "right-container" */ './rightContainer.vue'),
-      //HeadContainer: () => import(/* webpackChunkName: "head-container" */ './headContainer.vue'),
     },
     computed: {
       bodyClass() {
@@ -170,7 +154,7 @@
 
   .header-img {
     margin: 0 auto;
-    background-image: url("./images/head.png");
+    background-image: url("./images/head1.png");
     background-size: 12.78rem 1.7rem;
     width: 12.78rem;
     height: 1.7rem;
@@ -181,16 +165,10 @@
 
   .cost-index {
     position: absolute;
-    top: 6.7rem;
+    top: 7.4rem;
     z-index: 2;
   }
 
-  .cost-index2 {
-    position: absolute;
-    top: 7.5rem;
-    left: 5.52rem;
-    z-index: 2;
-  }
 
   .overview-Box {
     position: absolute;
@@ -214,9 +192,6 @@
     pointer-events: none;
   }
 
-  .bounce-enter-active {
-    animation: bounce-in .5s;
-  }
 
   @keyframes bounce-in {
     0% {

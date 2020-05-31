@@ -4,20 +4,20 @@
       {{list.name}}
     </div>
 
-    <Digital-Animation :num="list.per" class="rank-per" symbol="%"
+    <Digital-Animation :num="list.confirmedper" class="rank-per" symbol="%"
                        className="cost-index-symbol"></Digital-Animation>
     <div class="rank-data">
-      <p class="exit">{{list.exis}}/</p>
-      <p class="total">{{list.total}}</p>
+      <p class="exit">{{list.confirmedcount}}/</p>
+      <p class="total">{{list.confirmedtotal}}</p>
     </div>
     <div class="rank-progress">
-      <div class="rank-progress-empty"></div>
+      <div class="rank-progress-empty" v-bind:style="{ width: list.deadper*0.01*3.3+'rem'}"></div>
 
-      <div class="rank-progress-fill" v-bind:style="{ width: width+'rem' }" v-show="show"></div>
+      <div class="rank-progress-fill" v-show="show"></div>
     </div>
     <div class="rank-footer">
-      <div v-for="data in list.data" :key="index">
-        <div style="padding-left:0.15rem">
+      <div v-for="(data,index) in list.data" :key="index">
+        <div style="padding-left:0.15rem;margin-left:0.51rem">
           <div style="text-align:center">
             {{data.value}}
           </div>
@@ -38,35 +38,19 @@
         type: Object,
         default() {
           let data = {
-            name: "A项目",
-            agreement: "47份",
-            population: "1200人",
-            buildings: "75栋",
-            households: "421户",
-            per: "33",
-            exis: "10000㎡",
-            total: "30000㎡",
+            name: "A国",
+            per: 0,
+            confirmedcount: "0",
+            confirmedtotal: "0",
             data: [{
-              name: "占地面积",
-              value: "8500㎡/23000㎡"
+              name: "死亡人数",
+              value: "0"
             },
               {
-                name: "签约协议",
-                value: "47份"
-              },
-              {
-                name: "安置人口",
-                value: "1200人"
-              },
-              {
-                name: "签约楼栋",
-                value: "75栋"
-              }
-              ,
-              {
-                name: "签约户数",
-                value: "421户"
+                name: "治愈人数",
+                value: "0"
               }]
+
           };
           return data;
         },
@@ -96,7 +80,7 @@
     data() {
       return {
         width: 0,
-        show: false,
+        show: true,
       };
     },
   };</script>

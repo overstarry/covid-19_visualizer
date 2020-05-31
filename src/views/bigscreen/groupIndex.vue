@@ -2,151 +2,167 @@
   <div>
     <div class="title-box">
       <div class="title-icon"></div>
-      <span class="title-name">集团指标</span>
+      <span class="title-name">人数占比</span>
     </div>
     <div class="group">
 
-      <div v-for="(data,i) in datas">
+      <div v-for="(data,i) in datas" :key="i">
 
-
-        <div
-          v-bind:class="{ groupindex: data.id==1,groupindex2: data.id==2,groupindex3: data.id==3,groupindex4: data.id==4,}">
-          <div class="group-index-attribute">
-
-            <p class="group-index-name">{{data.title}}</p>
-            <div style="display:flex">
-              <Digital-Animation :num="data.data" class="group-index-num"></Digital-Animation>
-              <a class="group-index-company">{{data.unit}}</a>
-            </div>
-            <p class="group-index-total">{{data.des}}</p>
-          </div>
+        <el-tooltip class="item" effect="dark" :content="data.des" placement="left">
           <div
-            v-bind:class="{ grouppiefont1: data.id==1,grouppiefont2: data.id==2,grouppiefont3: data.id==3,grouppiefont4: data.id==4,}">
-            <div>
-              <span
-                style="font-family: Impact;font-size: 0.28rem;color: #FFFFFF;letter-spacing: 0;">{{pieDatas[i].value}}</span>
-              <span
-                style="ont-family: HelveticaNeue;font-size: 0.11rem;color: #FFFFFF;letter-spacing: 0;">%</span>
+            v-bind:class="{ groupindex: data.id==5,groupindex2: data.id==6,groupindex3: data.id==7,groupindex4: data.id==8,}">
+            <div class="group-index-attribute">
+
+              <p class="group-index-name">{{data.title}}</p>
+              <div style="display:flex">
+                <Digital-Animation :num="data.count" class="group-index-num"></Digital-Animation>
+              </div>
+              <p class="group-index-total">{{data.des}}</p>
             </div>
             <div
-              style="font-family: PingFangSC-Regular;font-size: 0.11rem;color: #A6F0FE;letter-spacing: 0;">
-              {{pieDatas[i].name}}
+              v-bind:class="{ grouppiefont1: data.id==5,grouppiefont2: data.id==6,grouppiefont3: data.id==7,grouppiefont4: data.id==8,}">
+              <div>
+              <span
+                style="font-family: Impact;font-size: 0.28rem;color: #FFFFFF;letter-spacing: 0;">{{pieDatas[i].value}}</span>
+                <span
+                  style="ont-family: HelveticaNeue;font-size: 0.11rem;color: #FFFFFF;letter-spacing: 0;">%</span>
+              </div>
+              <div
+                style="font-family: PingFangSC-Regular;font-size: 0.11rem;color: #A6F0FE;letter-spacing: 0;">
+                {{pieDatas[i].name}}
+              </div>
+            </div>
+            <div
+              v-bind:class="{ grouppie1: data.id==5,grouppie2: data.id==6,grouppie3: data.id==7,grouppie4: data.id==8,}"
+              :id="data.name">
             </div>
           </div>
-          <div
-            v-bind:class="{ grouppie1: data.id==1,grouppie2: data.id==2,grouppie3: data.id==3,grouppie4: data.id==4,}"
-            :id="data.name">
-
-
-          </div>
-        </div>
+        </el-tooltip>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import echarts from 'echarts'
+  import * as d3 from 'd3';
 
   export default {
     name: 'groupIndex',
     methods: {
-      pieInit() {
-        for (var i = 0; i < this.pieDatas.length; i++) {
-          var option = {
-            xAxis: {
-              splitLine: {
-                show: false
-              },
-              axisLabel: {
-                show: false
-              },
-              axisLine: {
-                show: false
-              }
-              // data: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-            },
-            yAxis: {
-              splitLine: {
-                show: false
-              },
-              axisLabel: {
-                show: false
-              },
-              axisLine: {
-                show: false
-              }
-            },
-            series: [
-              // 进度圈
-              {
-                type: 'pie',
-                silent: true,
-                radius: ["81%", "90%"],
-                center: ["69.5%", "47%"],
-                data: [{
-                  value: this.pieDatas[i].value,
-                  itemStyle: {
-                    normal: {
-                      borderWidth: 5,
-                      borderColor: {
-                        colorStops: [{
-                          offset: 0,
-                          color: '#0A4E78' || '#00cefc' // 0% 处的颜色
-                        }, {
-                          offset: 1,
-                          color: '#01E5F6' || '#367bec' // 100% 处的颜色
-                        }]
-                      },
-                      color: { // 完成的圆环的颜色
-                        colorStops: [{
-                          offset: 0,
-                          color: '#0A4E78' || '#00cefc' // 0% 处的颜色
-                        }, {
-                          offset: 1,
-                          color: '#01E5F6' || '#367bec' // 100% 处的颜色
-                        }]
-                      },
-                      label: {
-                        show: false
-                      },
-                      labelLine: {
-                        show: false
-                      },
-                    },
-                  }
-                },
-                  {
-                    name: 'gap',
-                    value: 100 - this.pieDatas[i].value,
-                    itemStyle: {
-                      normal: {
-                        label: {
-                          show: false
-                        },
-                        labelLine: {
-                          show: false
-                        },
-                        color: 'rgba(0, 0, 0, 0)',
-                        borderColor: 'rgba(0, 0, 0, 0)',
-                        borderWidth: 0,
-                      }
-                    },
-                  }
-                ]
-              },
 
-            ],
-          };
-          this.charts = echarts.init(document.getElementById(this.datas[i].name));
-          this.charts.setOption(option);
-        }
+      //还不太会弄甜甜圈图
+      drawPie() {
+        // set the dimensions and margins of the graph
+        const width = 320;
+        const height = 360;
+        const margin = 34;
+
+// The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+        const radius = Math.min(width, height) / 2 - margin
+
+// append the svg object to the div called 'my_dataviz'
+        const svg = d3.select("#my_dataviz")
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .append("g")
+          .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+// Create dummy data
+        // const data = {a: 9, b: 52}
+        const pieDatas = {
+          "现存确诊": 30, "累计确诊": 150,
+          "累计死亡": 29
+          , "累计治愈": 236
+        };
+// set the color scale
+        const color = d3.scaleOrdinal()
+          .domain(pieDatas)
+          .range(["#98abc5", "#8a89a6"])
+
+// Compute the position of each group on the pie:
+        const pie = d3.pie()
+          .value(function (d) {
+            return d.value;
+          })
+        const data_ready = pie(d3.entries(pieDatas))
+
+// Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+        svg
+          .selectAll('whatever')
+          .data(data_ready)
+          .enter()
+          .append('path')
+          .attr('d', d3.arc()
+            .innerRadius(100)         // This is the size of the donut hole
+            .outerRadius(radius)
+          )
+          .attr('fill', function (d) {
+            return (color(d.data.key))
+          })
+          .attr("stroke", "black")
+          .style("stroke-width", "2px")
+          .style("opacity", 0.7)
       },
-      animationInit() {
 
-      }
     },
     created() {
-      this.animationInit();
+      d3.json("DXYArea.json").then((data) => {
+        let temp1 = this.datas[0].count;
+        let temp2 = this.datas[1].count;
+        let temp3 = this.datas[2].count;
+        let temp4 = this.datas[3].count;
+        //this.datas.splice(0, 4);
+        for (const datakey in data.results) {
+          temp1 += data.results[datakey].currentConfirmedCount;
+          temp2 += data.results[datakey].confirmedCount;
+          temp3 += data.results[datakey].deadCount;
+          temp4 += data.results[datakey].curedCount;
+        }
+        this.datas.splice(0, 4);
+        this.pieDatas.splice(0, 4);
+        this.pieDatas.push(
+          {name: "现存确诊", value: (temp1 / temp2 * 100).toFixed(1)}
+        )
+        this.pieDatas.push(
+          {name: "累计确诊", value: 100}
+        )
+        this.pieDatas.push(
+          {name: "累计死亡", value: (temp3 / temp2 * 100).toFixed(1)}
+        )
+        this.pieDatas.push(
+          {name: "累计治愈", value: (temp4 / temp2 * 100).toFixed(1)}
+        )
+        //set不懂为什么不生效
+        this.datas.push({
+          id: 5,
+          name: "Signing",
+          title: "现存确诊",
+          count: temp1,
+          des: "现存确诊" + temp1
+        });
+        this.datas.push({
+          id: 6,
+          title: "累计确诊",
+          name: "express",
+          count: temp2,
+          des: "累计确诊人数:" + temp2
+        })
+        this.datas.push({
+          id: 7,
+          title: "累计死亡",
+          name: "dismantle",
+          count: temp3,
+          des: "累计死亡人数" + temp3
+        })
+        this.datas.push({
+          id: 8,
+          name: "place",
+          title: "累计治愈",
+          count: temp4,
+          des: "累计治愈人数" + temp4
+        })
+
+      });
 
     },
     components: {
@@ -154,44 +170,38 @@
     },
     mounted() {
       this.show = true;
-      this.pieInit();
     },
     data() {
       return {
         datas: [{
           id: 1,
           name: "Signing",
-          title: "签约面积",
-          data: 30000,
-          unit: "㎡",
-          des: "签约总面积:50000㎡"
+          title: "现存确诊",
+          count: 0,
+          des: "现存确诊" + 0
         }, {
           id: 2,
+          title: "累计确诊",
           name: "express",
-          title: "交房面积",
-          data: 25000,
-          unit: "㎡",
-          des: "交房总面积:50000㎡"
+          count: 0,
+          des: "累计确诊人数:" + 0
         }, {
           id: 3,
-          title: "拆除面积",
+          title: "累计死亡",
           name: "dismantle",
-
-          data: 25000,
-          unit: "㎡",
-          des: "拆除总面积:50000㎡"
+          count: 0,
+          des: "累计死亡人数" + 0
         }, {
           id: 4,
           name: "place",
-          title: "安置面积",
-          data: 25000,
-          unit: "㎡",
-          des: "安置总面积:50000㎡"
+          title: "累计治愈",
+          count: 0,
+          des: "累计治愈人数" + 0
         }],
-        pieDatas: [{name: "已签约", value: 30}, {name: "已交房", value: 50}, {
-          name: "已签约",
+        pieDatas: [{name: "现存确诊", value: 30}, {name: "累计确诊", value: 150}, {
+          name: "累计死亡",
           value: 29
-        }, {name: "已交房", value: 36}],
+        }, {name: "累计治愈", value: 236}],
         show: false
       };
     },
