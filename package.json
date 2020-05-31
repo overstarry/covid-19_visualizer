@@ -2,6 +2,7 @@
   "name": "covid-19_visualizer",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://overstarry.github.io/covid-19_visualizer",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

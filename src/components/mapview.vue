@@ -27,10 +27,15 @@
           }
         });
         d3.json("countries.json").then((data) => {
+          // eslint-disable-next-line no-unused-vars
+          const deviceWidth = document.documentElement.clientWidth;
+          // eslint-disable-next-line no-unused-vars
+          const deviceHeight = document.documentElement.clientHeight;
+          window.console.log(deviceWidth);
           let svg = d3.select('svg');
           let width = 1000;
-          let height = 600;
-          let scale = 240;
+          let height = 500;
+          let scale = 200;
           let origin = {
             x: 50,
             y: -40
@@ -64,16 +69,20 @@
               // 显示国家
               d3.select(this.parentNode).append("text")//appending it to path's parent which is the g(group) DOM
                 .attr("class", "mylabel")//adding a label class
-                .attr("dx", "620") // margin
+                .attr("dx", "720") // margin
                 .attr("dy", "12") // vertical-align
                 .attr("font-size", "0.14rem")
                 .attr("fill", "#fff")
                 .text(function () {
+                  if (typeof (contriesMap.get(d.properties.name)) == "undefined") {
+                    return "地区:";
+
+                  }
                   return "地区:" + contriesMap.get(d.properties.name).name;
                 });
               d3.select(this.parentNode).append("text")//appending it to path's parent which is the g(group) DOM
                 .attr("class", "mylabel")//adding a label class
-                .attr("dx", "620") // margin
+                .attr("dx", "720") // margin
                 .attr("dy", "34") // vertical-align
                 .attr("font-size", "0.14rem")
                 .attr("fill", "#fff")
