@@ -165,7 +165,7 @@
 
   .cost-index {
     position: absolute;
-    top: 7.4rem;
+    top: 7.5rem;
     z-index: 2;
   }
 
