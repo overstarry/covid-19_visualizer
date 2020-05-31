@@ -34,7 +34,7 @@
           window.console.log(deviceWidth);
           let svg = d3.select('svg');
           let width = 1000;
-          let height = 500;
+          let height = deviceWidth / 3;
           let scale = 200;
           let origin = {
             x: 50,
@@ -87,6 +87,10 @@
                 .attr("font-size", "0.14rem")
                 .attr("fill", "#fff")
                 .text(function () {
+                  if (typeof (contriesMap.get(d.properties.name)) == "undefined") {
+                    return "现存确诊人数: 0";
+
+                  }
                   return "现存确诊人数: " + contriesMap.get(d.properties.name).currentConfirmedCount;
                 });
             })
