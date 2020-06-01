@@ -2,22 +2,23 @@
   <div class="cost-index2-view">
     <div class="cost-index2-item">
       <div id="contracted">
-        <div class="cost-index2-title">33</div>
-        <line-statistics2 :list="contracted" :height="3" :width="2.7"/>
+        <div class="cost-index2-title">确诊人数变化</div>
+        <line-statistics :list="contracted" :height="3" :width="2.7"/>
       </div>
     </div>
     <div class="cost-index2-item">
       <div id="express">
-        <div class="cost-index2-title">11</div>
-        <line-statistics2 :list="contracted" :height="3" :width="2.7"/>
+        <div class="cost-index2-title">死亡人数变化</div>
+        <line-statistics1 :list="contracted" :height="3" :width="2.7"/>
       </div>
     </div>
     <div class="cost-index2-item">
       <div id="dismantle">
-        <div class="cost-index2-title">22</div>
-        <line-statistics2 :list="contracted" :height="3" :width="2.7"/>
+        <div class="cost-index2-title">治愈人数变化</div>
+        <line-statistics3 :list="contracted" :height="3" :width="2.7"/>
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -25,7 +26,11 @@
     name: 'costIndex2',
     methods: {},
     components: {
-      LineStatistics2: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics2.vue'),
+      // LineStatistics2: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics2.vue'),
+      LineStatistics: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics.vue'),
+      LineStatistics1: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics1.vue'),
+      LineStatistics3: () => import(/* webpackChunkName: "line-statistics" */ '../../components/LineStatistics3.vue'),
+
     },
     computed: {},
     created() {
@@ -40,7 +45,8 @@
     },
     data() {
       return {
-        contracted: []
+        contracted: [],
+        costindex2dead: "costindex2dead"
       };
     },
   };</script>
@@ -64,7 +70,7 @@
     font-size: 0.16rem;
     color: #FFFFFF;
     position: relative;
-    top: 0.17rem;
-    left: 1rem;
+    top: 0.27rem;
+    left: 0.87rem;
   }
 </style>

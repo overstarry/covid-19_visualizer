@@ -82,7 +82,7 @@
           },
           yAxis: {
             type: 'value',
-            name: '万',
+            name: '',
             axisLabel: {
               formatter: (params) => {
                 return params / 10000 + "万"

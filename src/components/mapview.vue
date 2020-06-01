@@ -129,7 +129,7 @@
             updatePaths();
           }
 
-          let timer = d3.timer(sphere_rotation);
+          let timer = d3.timer(sphere_rotation, 200);
 
           // todo 拖动方法暂时报废
           function dragged(d) {

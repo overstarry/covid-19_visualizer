@@ -10,20 +10,15 @@
   },
   "dependencies": {
     "add": "^2.0.6",
-    "axios": "^0.19.0",
     "better-scroll": "^1.15.2",
     "core-js": "^3.6.4",
     "d3": "^5.16.0",
-    "echarts": "^4.3.0",
+    "echarts": "^4.8.0",
     "element-ui": "^2.12.0",
-    "gsap": "^3.0.4",
+    "gsap": "^3.2.6",
     "mint-ui": "^2.2.13",
     "nprogress": "^0.2.0",
-    "qs": "^6.9.0",
-    "swiper": "^5.3.7",
-    "vue": "^2.6.11",
-    "vue-awesome-swiper": "^4.1.1",
-    "vue-echarts": "^4.0.4"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
