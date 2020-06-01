@@ -6,7 +6,7 @@ class Line {
     this._height = 240;
     this._padding = 10;
     this._offset = 35;
-    this._margins = {right: 45, bottom: 25, left: 50, top: 40};
+    this._margins = {right: 45, bottom: 35, left: 50, top: 40};
     this._scaleX = d3.scaleBand().range([0, this.quadrantWidth()]).paddingInner(1).align(0);
     this._scaleY = d3.scaleLinear().range([this.quadrantHeight(), 0]);
     this._color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -213,7 +213,7 @@ class Line {
     if (y > this.quadrantHeight() - this._tooltip.style('height').slice(0, -2) - this._padding * 2) {
       y = y - this._tooltip.style('height').slice(0, -2) - this._padding * 2 - this._offset * 2 + 50;
     }
-    let str = `<div style="text-align: center">${this._dataX[cutIndex]}</div>`;
+    let str = `<div style="text-align: center">${this._dataX[cutIndex]}月</div>`;
     this._series.forEach((d, i) => {
       str = str + `<div style="width: 15px;height: 15px;vertical-align: middle;margin-right: 5px;border-radius: 50%;display: inline-block;background: ${this._color(i)};"></div>${d.name}<span style="display: inline-block;margin-left: 20px">${d['data'][cutIndex]}</span><br/>`
     })

@@ -66,7 +66,7 @@
           })
         }
         for (let i = 0; i < dead_arr.length; i++) {
-          dead_arr[i].deadper = (dead_arr[i].deadcount / temp3 * 100).toFixed(1)
+          dead_arr[i].deadper = (dead_arr[i].deadcount / dead_arr[i].confirmedCount * 100).toFixed(1)
           dead_arr[i].confirmedper = (dead_arr[i].confirmedCount / temp2 * 100).toFixed(1)
           dead_arr[i].confirmedtotal = temp2
           dead_arr[i].deadtotal = temp3
@@ -218,7 +218,7 @@
   }
 
   .project-index-box {
-    background-image: url("./images/projectIndex.png");
+    background-image: url("images/images/projectIndex.png");
     position: absolute;
     top: 0.85rem;
     width: 5rem;
@@ -229,7 +229,7 @@
 
   /*签约排名*/
   .project-index-title {
-    background-image: url('./images/xmzb.png');
+    background-image: url('images/images/xmzb.png');
     background-size: 1.02rem 0.4rem;
     width: 1.02rem;
     height: 0.4rem;
@@ -246,7 +246,7 @@
 
   /*交房排名*/
   .project-index-title2 {
-    background-image: url('./images/xmzb.png');
+    background-image: url('images/images/xmzb.png');
     background-size: 1.02rem 0.4rem;
     width: 1.02rem;
     height: 0.4rem;

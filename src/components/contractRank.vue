@@ -107,7 +107,7 @@
   }
 
   .rank-data {
-    background-image: url("./images/xmzb.png");
+    background-image: url("images/images/xmzb.png");
     background-size: 1.28rem 0.26rem;
     width: 1.28rem;
     height: 0.26rem;

@@ -31,9 +31,9 @@
       document.getElementById("app").style.height = "10.8rem";
     },
     components: {
-      GroupIndex: () => import('./groupIndex.vue'),
-      CostIndex2: () => import('./costIndex2.vue'),
-      ProjectIndex: () => import('./projectIndex.vue'),
+      GroupIndex: () => import('../../components/groupIndex.vue'),
+      CostIndex2: () => import('../../components/costIndex2.vue'),
+      ProjectIndex: () => import('../../components/projectIndex.vue'),
       MapView: () => import('../../components/mapview.vue'),
 
     },
@@ -51,7 +51,7 @@
 <style scoped lang="scss">
 
   @import "../../style/pcmixin";
-  @import "./font/font.css";
+  @import "../../components/font/font.css";
 
   .h-home {
     @include max-box;
@@ -154,7 +154,7 @@
 
   .header-img {
     margin: 0 auto;
-    background-image: url("./images/head1.png");
+    background-image: url("../../components/images/images/head1.png");
     background-size: 12.78rem 1.7rem;
     width: 12.78rem;
     height: 1.7rem;

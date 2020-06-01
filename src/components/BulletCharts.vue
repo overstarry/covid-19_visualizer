@@ -6,7 +6,7 @@
 <script>
 
   import * as d3 from 'd3';
-  import {bullet} from '../../utils/bulleT.js'
+  import {bullet} from '../utils/bulleT.js'
 
   export default {
     name: '',

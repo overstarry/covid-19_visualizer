@@ -1,11 +1,11 @@
 <template>
   <div class="c-chart1" :class="id" :style="chartStyle">
-    <!--<v-chart :options="polar" />-->
     <div></div>
   </div>
 </template>
 <script>
-  import {Line} from "../../utils/line.js";
+  import {Line} from "../utils/line.js";
+  import * as d3 from "d3";
 
 
   export default {
@@ -13,7 +13,8 @@
     data() {
       return {
         //生成一个随机的ID
-        id: "main" + new Date().getMilliseconds() * Math.floor(Math.random() * 10000)
+        id: "main" + new Date().getMilliseconds() * Math.floor(Math.random() * 10000),
+
       }
     },
     props: {
@@ -24,24 +25,7 @@
       height: {
         type: Number,
         default: 300,
-      },
-      list: {
-        type: Array,
-        default() {
-          let data = [];
-          const names = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
-
-          for (let i = 0; i < names.length; i++) {
-            data.push({
-              name: names[i],
-              value: Math.random() * 100,
-            });
-          }
-          return data;
-        },
       }
-
-
     },
     computed: {
       chartStyle() {
@@ -60,27 +44,32 @@
     },
     methods: {
       chartInit() {
+        let arr = [];
+        let dataX = [];
 
-        const dataX = ['1月', '2月', '3月', '4月', '5月', '6月'];
-        const series = [
-          {name: '死亡人数', data: [1640, 1864, 1802, 1868, 2580, 2660]}];
-        const line = new Line('.c-chart1');
-        line
-          .dataX(dataX)
-          .series(series)
-          .render()
+        let series = [{
+          name: '人数', data: arr
+        }];
+        d3.json("fjyf.json").then((data) => {
+          for (const keys in data) {
+            dataX.push(data[keys].key);
+            arr.push(data[keys].value);
+          }
+          series[0].arr = arr;
+          const line = new Line('.c-chart1');
+          line
+            .dataX(dataX)
+            .series(series)
+            .render()
+        });
+
       }
     }
   };
 </script>
 <style lang="scss">
 
-  /*.c-chart {*/
-  /*  .echarts {*/
-  /*    width: 100%;*/
-  /*    height: 100%;*/
-  /*  }*/
-  /*}*/
+
   .domain {
     stroke-width: 2;
     fill: none;

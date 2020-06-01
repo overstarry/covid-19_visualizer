@@ -2,20 +2,20 @@
   <div class="cost-index2-view">
     <div class="cost-index2-item">
       <div id="contracted">
-        <div class="cost-index2-title">确诊人数变化</div>
-        <line-statistics :list="contracted" :height="3" :width="2.7"/>
+        <div class="cost-index2-title">福建省确诊人数变化</div>
+        <line-statistics :height="3" :width="2.7"/>
       </div>
     </div>
     <div class="cost-index2-item">
       <div id="express">
-        <div class="cost-index2-title">死亡人数变化</div>
-        <line-statistics1 :list="contracted" :height="3" :width="2.7"/>
+        <div class="cost-index2-title">湖北省确诊人数变化</div>
+        <line-statistics1 :height="3" :width="2.7"/>
       </div>
     </div>
     <div class="cost-index2-item">
       <div id="dismantle">
-        <div class="cost-index2-title">治愈人数变化</div>
-        <line-statistics3 :list="contracted" :height="3" :width="2.7"/>
+        <div class="cost-index2-title">福建省治愈人数变化</div>
+        <line-statistics3 :height="3" :width="2.7"/>
       </div>
     </div>
 
@@ -26,27 +26,16 @@
     name: 'costIndex2',
     methods: {},
     components: {
-      // LineStatistics2: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics2.vue'),
       LineStatistics: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics.vue'),
       LineStatistics1: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics1.vue'),
-      LineStatistics3: () => import(/* webpackChunkName: "line-statistics" */ '../../components/LineStatistics3.vue'),
+      LineStatistics3: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics3.vue'),
 
     },
     computed: {},
     created() {
-      var data = [];
-      for (var i = 1; i <= 12; i++) {
-        data.push({
-          name: i,
-          value: Math.floor(Math.random() * 100000),
-        });
-      }
-      this.contracted = data;
     },
     data() {
       return {
-        contracted: [],
-        costindex2dead: "costindex2dead"
       };
     },
   };</script>
@@ -57,7 +46,7 @@
     display: flex;
     justify-content: center;
     padding-left: 20px;
-    background-image: url("./images/costindex2.png");
+    background-image: url("images/images/costindex2.png");
     background-size: 8.745rem 3.21rem;
   }
 
@@ -71,6 +60,6 @@
     color: #FFFFFF;
     position: relative;
     top: 0.27rem;
-    left: 0.87rem;
+    left: 0.67rem;
   }
 </style>

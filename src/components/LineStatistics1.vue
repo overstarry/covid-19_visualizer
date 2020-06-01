@@ -1,6 +1,5 @@
 <template>
   <div class="c-chart2" :class="id" :style="chartStyle">
-    <!--<v-chart :options="polar" />-->
     <div></div>
   </div>
 </template>
@@ -14,7 +13,7 @@
       this._height = 240;
       this._padding = 10;
       this._offset = 35;
-      this._margins = {right: 45, bottom: 25, left: 50, top: 40};
+      this._margins = {right: 45, bottom: 35, left: 50, top: 40};
       this._scaleX = d3.scaleBand().range([0, this.quadrantWidth()]).paddingInner(1).align(0);
       this._scaleY = d3.scaleLinear().range([this.quadrantHeight(), 0]);
       this._color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -222,7 +221,7 @@
       }
       let str = `<div style="text-align: center">${this._dataX[cutIndex]}月</div>`;
       this._series.forEach((d, i) => {
-        str = str + `<div style="width: 15px;height: 15px;vertical-align: middle;margin-right: 5px;border-radius: 50%;display: inline-block;background: ${this._color(i)};"></div>${d.name}<span style="display: inline-block;margin-left: 20px">${d['data'][cutIndex]}</span><br/>`
+        str = str + `<div style="width: 15px;height: 15px;vertical-align: middle;margin-right: 5px;border-radius: 50%;display: inline-block;background: ${this._color(i)};"></div>${d.name}<span style="display: inline-block;margin-left: 20px">${d['data'][cutIndex] * 2000}</span><br/>`
       })
       this._tooltip.html(str).transition().duration(100).ease(d3.easeLinear).style('display', 'inline-block').style('opacity', .6).style('left', `${x + this._offset + this._padding}px`).style('top', `${y + this._offset + this._padding}px`);
     }
@@ -313,24 +312,7 @@
       height: {
         type: Number,
         default: 300,
-      },
-      list: {
-        type: Array,
-        default() {
-          let data = [];
-          const names = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
-
-          for (let i = 0; i < names.length; i++) {
-            data.push({
-              name: names[i],
-              value: Math.random() * 100,
-            });
-          }
-          return data;
-        },
       }
-
-
     },
     computed: {
       chartStyle() {
@@ -349,27 +331,31 @@
     },
     methods: {
       chartInit() {
+        let arr = [];
+        let dataX = [];
 
-        const dataX = ['1', '2', '3', '4', '5', '6', '7'];
-        const series = [
-          {name: '死亡人数', data: [1640, 1864, 1802, 1868, 2580, 2660, 123]}];
-        const line = new Line('.c-chart2');
-        line
-          .dataX(dataX)
-          .series(series)
-          .render()
+        let series = [{
+          name: '人数', data: arr
+        }];
+        d3.json("hb.json").then((data) => {
+          for (const keys in data) {
+            dataX.push(data[keys].key);
+            arr.push(data[keys].value / 2000);
+          }
+          series[0].arr = arr;
+          const line = new Line('.c-chart2');
+          line
+            .dataX(dataX)
+            .series(series)
+            .render()
+        });
       }
     }
   };
 </script>
 <style lang="scss">
 
-  /*.c-chart {*/
-  /*  .echarts {*/
-  /*    width: 100%;*/
-  /*    height: 100%;*/
-  /*  }*/
-  /*}*/
+
   .domain {
     stroke-width: 2;
     fill: none;

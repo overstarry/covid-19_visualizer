@@ -249,7 +249,7 @@
   .groupindex {
     width: 5.07rem;
     height: 1.33rem;
-    background-image: url('./images/qymj.png');
+    background-image: url('images/images/qymj.png');
     background-size: 5.07rem 1.33rem;
     margin: 0.15rem 0 0 0;
     display: flex;
@@ -260,7 +260,7 @@
   .groupindex2 {
     width: 4.64rem;
     height: 1.30rem;
-    background-image: url('./images/jfmj.png');
+    background-image: url('images/images/jfmj.png');
     background-size: 4.64rem 1.30rem;
     margin: 0.15rem 0 0 0;
     display: flex;
@@ -271,7 +271,7 @@
   .groupindex3 {
     width: 4.36rem;
     height: 1.33rem;
-    background-image: url('./images/ccmj.png');
+    background-image: url('images/images/ccmj.png');
     background-size: 4.36rem 1.33rem;
     margin: 0.15rem 0 0 0;
     display: flex;
@@ -283,7 +283,7 @@
     background-size: 4.68rem 1.30rem;
     width: 4.68rem;
     height: 1.30rem;
-    background-image: url('./images/azmj.png');
+    background-image: url('images/images/azmj.png');
     margin: 0.15rem 0 0 0;
     display: flex;
     border-radius: 0.04rem;
@@ -329,14 +329,14 @@
   }
 
   .group-index-pie {
-    background-image: url("./images/pie2x.png");
+    background-image: url("images/images/pie2x.png");
     width: 1.578125rem;
     height: 0.63rem;
     padding-left: 0.8rem;
   }
 
   .grouppie1 {
-    background-image: url("./images/pie.png");
+    background-image: url("images/images/pie.png");
     width: 3.03rem;
     height: 1.2rem;
     background-size: 3.03rem 1.2rem;
@@ -346,7 +346,7 @@
   }
 
   .grouppie2 {
-    background-image: url("./images/pie.png");
+    background-image: url("images/images/pie.png");
     width: 3.03rem;
     height: 1.21rem;
     background-size: 3.03rem 1.21rem;
@@ -356,7 +356,7 @@
   }
 
   .grouppie3 {
-    background-image: url("./images/pie.png");
+    background-image: url("images/images/pie.png");
     width: 3.03rem;
     height: 1.21rem;
     background-size: 3.03rem 1.21rem;
@@ -366,7 +366,7 @@
   }
 
   .grouppie4 {
-    background-image: url("./images/pie3.png");
+    background-image: url("images/images/pie3.png");
     width: 3.03rem;
     height: 1.21rem;
     background-size: 3.03rem 1.21rem;
