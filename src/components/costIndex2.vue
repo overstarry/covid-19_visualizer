@@ -15,7 +15,7 @@
     <div class="cost-index2-item">
       <div id="dismantle">
         <div class="cost-index2-title">福建省治愈人数变化</div>
-        <line-statistics3 :height="3" :width="2.7"/>
+        <line-statistics2 :height="3" :width="2.7"/>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
     components: {
       LineStatistics: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics.vue'),
       LineStatistics1: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics1.vue'),
-      LineStatistics3: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics3.vue'),
+      LineStatistics2: () => import(/* webpackChunkName: "line-statistics" */ './LineStatistics2.vue'),
 
     },
     computed: {},

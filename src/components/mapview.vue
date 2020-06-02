@@ -123,7 +123,7 @@
            * 球体旋转
            */
           function sphere_rotation() {
-            let velocity = [.015, 0.015];
+            let velocity = [.015, 0];
             let dt = d3.now() - time;
             projection.rotate([origin.x + velocity[0] * dt, origin.y + velocity[1] * dt]);
             updatePaths();

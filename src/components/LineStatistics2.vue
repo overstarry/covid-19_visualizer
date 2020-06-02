@@ -25,7 +25,7 @@
       this._tooltip = null;
       this._transLine = null;
       this._activeR = 5;
-      this._ticks = 5;
+      this._ticks = 6;
       this._names = id;
     }
 

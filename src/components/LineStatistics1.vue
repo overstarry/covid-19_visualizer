@@ -24,7 +24,7 @@
       this._tooltip = null;
       this._transLine = null;
       this._activeR = 5;
-      this._ticks = 5;
+      this._ticks = 6;
       this._names = id;
     }
 
@@ -76,7 +76,6 @@
         .attr('transform', `translate(${this.xStart()}, ${this.yEnd()})`)
         .call(yAxis)
         .style("stroke-dasharray", "5 5")
-
       d3.selectAll('.y .tick')
         .append('line')
         .attr('class', 'grid-line')
