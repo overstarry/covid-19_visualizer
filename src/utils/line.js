@@ -189,6 +189,7 @@ class Line {
     this._svg.on('mousemove', () => {
       let px = d3.event.offsetX;
       let py = d3.event.offsetY;
+
       if (px < this.xEnd() && px > this.xStart() && py < this.yStart() && py > this.yEnd()) {
         this.renderTransLineAndTooltip(px, py, px - this.xStart());
       } else {

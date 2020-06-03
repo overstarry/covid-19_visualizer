@@ -83,7 +83,6 @@
         dead_arr.sort(this.compare("confirmedCount")).slice(0, 3);
         this.contractDatas = dead_arr.slice(0, 3);
         this.contractDatas1.length = 0;
-        window.console.log(this.contractDatas);
 
         this.contractDatas1 = dead_arr.sort(this.compare("deadcount")).slice(0, 3);
         for (let i = 0; i < this.contractDatas1.length; i++) {
