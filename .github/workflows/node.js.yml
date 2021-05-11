@@ -15,6 +15,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.2
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: build # The folder the action should deploy.
+          folder: dist # The folder the action should deploy.
           token: ${{ secrets.ACCESS_TOKEN }} # 使用刚新建的secret
       
