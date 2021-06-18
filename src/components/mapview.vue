@@ -27,14 +27,19 @@
           }
         });
         d3.json("countries.json").then((data) => {
+          // eslint-disable-next-line no-unused-vars
+          const deviceWidth = document.documentElement.clientWidth;
+          // eslint-disable-next-line no-unused-vars
+          const deviceHeight = document.documentElement.clientHeight;
           let svg = d3.select('svg');
           let width = 1000;
-          let height = 600;
-          let scale = 240;
+          let height = deviceWidth / 3;
+          let scale = 200;
           let origin = {
             x: 50,
             y: -40
           };
+          // eslint-disable-next-line no-unused-vars
           let color = d3.scaleOrdinal().domain([0, 8]).range(d3.schemePaired);
           let earth = svg.append('svg').attr('class', 'earth')
             .attr('width', width).attr('height', height);
@@ -57,27 +62,37 @@
           group.selectAll('path.land').data(data.features).join('path')
             .attr('class', 'land')
             .attr('d', geoPath)
+            // eslint-disable-next-line no-unused-vars
             .attr('fill', function (d, i) {
-              return color(i % 42);
+              return "#a6cee3";
+              // return color(i % 42);
             })
             .on('mouseover', function (d) {
               // 显示国家
               d3.select(this.parentNode).append("text")//appending it to path's parent which is the g(group) DOM
                 .attr("class", "mylabel")//adding a label class
-                .attr("dx", "620") // margin
+                .attr("dx", "720") // margin
                 .attr("dy", "12") // vertical-align
                 .attr("font-size", "0.14rem")
                 .attr("fill", "#fff")
                 .text(function () {
+                  if (typeof (contriesMap.get(d.properties.name)) == "undefined") {
+                    return "地区:";
+
+                  }
                   return "地区:" + contriesMap.get(d.properties.name).name;
                 });
               d3.select(this.parentNode).append("text")//appending it to path's parent which is the g(group) DOM
                 .attr("class", "mylabel")//adding a label class
-                .attr("dx", "620") // margin
+                .attr("dx", "720") // margin
                 .attr("dy", "34") // vertical-align
                 .attr("font-size", "0.14rem")
                 .attr("fill", "#fff")
                 .text(function () {
+                  if (typeof (contriesMap.get(d.properties.name)) == "undefined") {
+                    return "现存确诊人数: 0";
+
+                  }
                   return "现存确诊人数: " + contriesMap.get(d.properties.name).currentConfirmedCount;
                 });
             })
@@ -102,13 +117,31 @@
 
           }
 
+          let time = d3.now();
+
+          /**
+           * 球体旋转
+           */
+          function sphere_rotation() {
+            let velocity = [.015, 0];
+            let dt = d3.now() - time;
+            projection.rotate([origin.x + velocity[0] * dt, origin.y + velocity[1] * dt]);
+            updatePaths();
+          }
+
+          let timer = d3.timer(sphere_rotation, 200);
+
+          // todo 拖动方法暂时报废
           function dragged(d) {
+            timer.stop();
             let r = {
               x: lambda((d.x = d3.event.x)),
               y: phi((d.y = d3.event.y))
             };
             projection.rotate([origin.x + r.x, origin.y + r.y]);
             updatePaths();
+            time = d3.now();
+            timer.restart(sphere_rotation);
           }
 
           function zoomed() {
