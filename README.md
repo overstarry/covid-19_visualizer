@@ -22,3 +22,9 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/Sitoi/dailycheckin.svg)](https://starchart.cc/Sitoi/dailycheckin)
