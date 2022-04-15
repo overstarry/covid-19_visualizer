@@ -11,7 +11,7 @@
   "dependencies": {
     "add": "^2.0.6",
     "better-scroll": "^2.4.2",
-    "core-js": "^3.19.2",
+    "core-js": "^3.22.0",
     "d3": "^5.16.0",
     "element-ui": "^2.15.6",
     "gsap": "^3.8.0",
